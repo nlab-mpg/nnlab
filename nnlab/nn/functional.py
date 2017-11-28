@@ -4,6 +4,7 @@
 from __future__ import absolute_import, print_function, division
 
 import numpy as np
+import tensorflow as tf
 from tensorflow.python.ops import array_ops
 
 from nnlab.env import FLOAT_TYPE, INT_TYPE
@@ -12,13 +13,23 @@ from nnlab import nn
 
 def placeholder(dtype, shape, name=None):
     """Create a placeholder tensor. """
-    placeholder_op = array_ops.placeholder(dtype, shape, name)
-    return nn.Tensor(placeholder_op, 0, dtype)
+    placeholder = tf.placeholder(dtype, shape, name)
+    return nn.Tensor(placeholder)
 
 def placeholder_with_default(data, shape, name=None):
     """Create a placeholder with default value. """
-    placeholder_op = array_ops.placeholder_with_default(data, shape, name)
-    return nn.Tensor(placeholder_op, 0, data.dtype)
+    placeholder = tf.placeholder_with_default(data, shape, name)
+    return tensor_from_tf(placeholder)
+
+def tensor_from_tf(obj):
+    """Convert tensorflow tensors in the object to nnlab tensors."""
+    from nnlab.utils.conver_tensor import convert_tensor
+    return convert_tensor(obj, tf_to_nn=True)
+
+def tensor_to_tf(obj):
+    """Convert nnlab tensors in the object tensorflow tensors."""
+    from nnlab.utils.conver_tensor import convert_tensor
+    return convert_tensor(obj, tf_to_nn=False)
 
 def float_tensor(data, is_batch=False, name=None):
     """Create a float tensor with data."""
