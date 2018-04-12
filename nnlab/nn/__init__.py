@@ -4,3 +4,5 @@
 from .tensor import Tensor
 from .modules import *
 from ..core.runtime import nn_runtime as runtime
+
+from .graph import Graph

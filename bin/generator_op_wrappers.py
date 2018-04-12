@@ -27,8 +27,7 @@ def FUNC_NAME(*args, **kwargs):
     kwargs = F.tensor_to_tf(kwargs)
     result = MOD_NAME.FUNC_NAME(*args, **kwargs)
     return F.tensor_from_tf(result)
-    
-"""
+""".strip()
 
 TARGET_MODULES = [
     ("standard_ops", standard_ops),
@@ -41,4 +40,4 @@ if __name__ == '__main__':
         for op_name in dir(module):
             if not op_name.startswith("_") and op_name.islower():
                 func_text = WRAPPER_TEMPLATE.replace("MOD_NAME", module_name).replace("FUNC_NAME", op_name)
-                print(func_text)
+                print(func_text + "\n")

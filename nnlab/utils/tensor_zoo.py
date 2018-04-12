@@ -16,6 +16,6 @@ def load_predefined_tensor(template_name):
     
     if template_name == 'sequence_2d':
         data = np.array([[1,2,3,4], [1,2,3,0], [1,2,0,0]])
-        return F.int_tensor(data, is_batch=True, name=template_name)
+        return F.int_tensor(data, is_batch=True, is_sequence=True, name=template_name)
     else:
         raise NotImplementedError

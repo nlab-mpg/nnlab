@@ -13,18 +13,20 @@ def convert_tensor(obj, tf_to_nn=True):
     if type(obj) == tuple:
         return tuple(convert_tensor(list(obj), tf_to_nn))
     if type(obj) == list:
-        return map(convert_tensor, obj)
+        return [convert_tensor(o, tf_to_nn) for o in obj]
     elif type(obj) == dict:
         normal_map = {}
         for key in obj:
             new_obj = convert_tensor(obj[key], tf_to_nn)
-            normal_map[key] = new_obj
+            new_key = convert_tensor(key, tf_to_nn)
+            normal_map[new_key] = new_obj
         return normal_map
     elif type(obj) == MapDict:
         normal_map = {}
         for key in obj:
             new_obj = convert_tensor(obj[key], tf_to_nn)
-            normal_map[key] = new_obj
+            new_key = convert_tensor(key, tf_to_nn)
+            normal_map[new_key] = new_obj
         return MapDict(normal_map)
     elif isinstance(obj, nn.Tensor):
         return obj if tf_to_nn else obj.tf

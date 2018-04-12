@@ -3,9 +3,10 @@
 
 from __future__ import print_function
 
-from nnlab import nn
+
 import tensorflow as tf
 
+from nnlab import nn
 from .module import Module
 from .. import functional as F
 
@@ -19,7 +20,7 @@ class Embedding(Module):
         self._prepare()
     
     def _prepare(self):
-        self._weight = self.new_parameter((self._vocab_size, self._embed_size), name="W")
+        self._weight = self.new_parameter("embedding", (self._vocab_size, self._embed_size))
     
     def get(self, token_ids):
         """Get the embeddings for given token ids"""
@@ -31,6 +32,3 @@ class Embedding(Module):
     def weight_matrix(self):
         """Return the weight matrix of embeddings."""
         return self._weight
-    
-    
-    

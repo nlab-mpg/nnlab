@@ -26,7 +26,7 @@ else:
     FLOAT_TYPE = "float32"
 
 # Int precision
-INT_PRECISION = os.environ.get("INT_PRECISION", "32")
+INT_PRECISION = os.environ.get("INT_PRECISION", "64")
 if int(INT_PRECISION) == 16:
     TF_INT_TYPE = tf.int16
     INT_TYPE = "int16"
